@@ -1,3 +1,5 @@
-# Precribing map london
+## Overview
 
-mini-app to visualise drug prescription across various spatial district datazones in London. 
+Mini-app to visualise drug prescription across various spatial district datazones in London. 
+
+## Deployment
