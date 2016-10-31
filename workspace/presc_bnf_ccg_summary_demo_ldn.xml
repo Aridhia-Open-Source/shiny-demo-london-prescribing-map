@@ -1,0 +1,30 @@
+<TableDefinition TableName='presc_bnf_ccg_summary_demo_ldn' Action='create'>
+  <Columns>
+    <Column Name='column1' Type='numeric'/>
+    <Column Name='ccg_code' Type='text'/>
+    <Column Name='proposed_ccg_name' Type='text'/>
+    <Column Name='number_of_practices' Type='numeric'/>
+    <Column Name='sum_of_population' Type='text'/>
+    <Column Name='number_of_lsoas' Type='numeric'/>
+    <Column Name='commissioning_board_region' Type='text'/>
+    <Column Name='current_pct_cluster' Type='text'/>
+    <Column Name='indicative_running_cost_allowance__m' Type='numeric'/>
+    <Column Name='year' Type='numeric'/>
+    <Column Name='case' Type='text'/>
+    <Column Name='ccg_population' Type='numeric'/>
+    <Column Name='items' Type='numeric'/>
+    <Column Name='act_cost' Type='numeric'/>
+    <Column Name='nic' Type='numeric'/>
+    <Column Name='ccg13nm' Type='text'/>
+    <Column Name='long' Type='numeric'/>
+    <Column Name='lat' Type='numeric'/>
+    <Column Name='order' Type='numeric'/>
+    <Column Name='group' Type='text'/>
+    <Column Name='id' Type='text'/>
+    <Column Name='items_perc' Type='numeric'/>
+    <Column Name='act_cost_perc' Type='numeric'/>
+  </Columns>
+  <Format Delimiter=',' TextQualifier='&quot;' Encoding='ISO-8859-1' Header='true' HeaderCase='lower' DateFormat='ISO, DMY' CopyToFile='false'/>
+  <Success RemovefromUpload='true'/>
+  <Fail RemovefromUpload='false'/>
+</TableDefinition>
