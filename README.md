@@ -2,7 +2,7 @@
 
 Mini-app to visualise drug prescription across various spatial district datazones in London. 
 
-#Deployment
+# Deployment
 
 Clone or download repository and navigate inside workspace folder. 
 
