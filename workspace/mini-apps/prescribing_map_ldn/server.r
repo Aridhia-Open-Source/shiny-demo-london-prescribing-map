@@ -2,8 +2,6 @@
 # Set miniapp option
 options(dplyr.length = 1e10)
 
-
-
 # Miniapp server function
 shinyServer(function(input, output, session) {
   
@@ -55,7 +53,6 @@ shinyServer(function(input, output, session) {
     
     # Return
     summarised_data
-    
   })
       
   ## Get splines to segment and colour data by
@@ -89,7 +86,6 @@ shinyServer(function(input, output, session) {
     
     c_palette$col_grp <- colour_group
     
-    
     # Define gradient colours within each of the colour groups        
     c_palette$col_code <- c(colorRampPalette(c("#c8f1cb", "#4ad254"))(nrow(c_palette%>% filter(col_grp=="low"))),
                             colorRampPalette(c("#ffdb99","#ffb732"))(nrow(c_palette%>% filter(col_grp=="moderate"))),
@@ -105,14 +101,13 @@ shinyServer(function(input, output, session) {
   
   ## Add the map title to the UI
   output$map_title <- renderUI(
-      HTML(
-        create_maps_title(add_palette(), input$year, input$var, input$drug, get_splines())       
-      )
+    HTML(
+      create_maps_title(add_palette(), input$year, input$var, input$drug, get_splines())       
     )
+  )
   
   ## Tooltip function. x is the ggvis object that is currently triggering the tooltip
   map_tooltip <- function(x) {
-    
     # Return an empty tooltip if x is empty
     if(is.null(x)) return(NULL)
 	
@@ -122,7 +117,7 @@ shinyServer(function(input, output, session) {
     # Get selected data
     selected_data <- add_palette()
 
-	# Filter ans summarise the selected data according to the retrieved CCG code
+	  # Filter ans summarise the selected data according to the retrieved CCG code
     ccg <- selected_data %>%
       filter(ccg_code == selected_ccg_code) %>%
       group_by(
