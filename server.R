@@ -1,17 +1,7 @@
 
-# Set miniapp option
 options(dplyr.length = 1e10)
 
-# Miniapp server function
-shinyServer(function(input, output, session) {
-  
-  ## Read the data 
-  df <- xap.read_table("presc_bnf_ccg_summary_demo_ldn")
-  #df <- read.csv("//aridhia.net/files/shared/Data Science Team/Demos/data/miniapps_demo/archive/presc_bnf_ccg_summary_demo_ldn2.csv")
-  
-  df$case[df$case == "diabetes"] <- "Systemic Corticosteroids"
-  df$case[df$case == "statins"] <- "Anticholinergics"
-  df$case[df$case == "antidepressants"] <- "Immunomodulators"
+server <- function(input, output, session) {
   
   ## Filter the data according to the values of the widgets
   select_data <- reactive({
@@ -142,8 +132,6 @@ shinyServer(function(input, output, session) {
   }
   
   ## Create ggvis interactive map
-  
-  ## Bind interactive map to the UI
   ggvis(add_palette %>% arrange(order) %>% group_by(ccg_code, group)) %>%
     layer_paths(x = ~long, y = ~lat, fill := ~col_code, fillOpacity := 0.8, fillOpacity.hover := 1,
                 strokeWidth := 0.5, strokeWidth.hover := 2) %>%  
@@ -154,7 +142,6 @@ shinyServer(function(input, output, session) {
     bind_shiny("map_plot")
     
   output$table <- renderDataTable({
-    
     data <- select_data()
     
     display_data <- data %>%
@@ -166,58 +153,4 @@ shinyServer(function(input, output, session) {
               )
     
   })
-      
-})
-
-## A function that creates the map's title
-create_maps_title <- function(maps_data, year = NULL, var = NULL, drug = NULL, c_splines) {
-  
-  # Set colours
-  g_col = "#4ad254"
-  o_col = "#ffb732"
-  r_col = "#ee2a2a"
-  
-  # Set names to appear for certain options
-  #if (drug=="antidepressants"){
-  #  drug = "anti-depressants"
-  #}
-  #else if (drug=="diabetes"){
-  #  drug = "diabetic drugs"
-  #}
-  
-  # Create title's HTML code
-  if (var=="items_perc"){
-    lab1 <- paste0("Percentage of ", drug, " prescribed in ", year, " across populations in London")
-    title <- paste0("<h3> ",
-                   lab1,
-                   "</h3>",
-                   "<h4>",
-                   "Groups: ",
-                   " <font color='",g_col,"'>0 < ", round(c_splines[2],2),"%</font>",
-                   " <font color='",o_col,"'>", round(c_splines[2],2), " < ", round(c_splines[3],2),"%</font>",
-                   " <font color='",r_col, "'>", round(c_splines[3],2), "% +</font>",
-                   "</h4>"
-    )
-  }
-  else if (var=="act_cost_perc"){
-    lab1 <- paste0("Average cost (£ per person) of ", drug, " prescribed in ", year, " corrected to CCG population sizes across London")
-    title <- paste0("<h3> ",
-                   lab1,
-                   "</h3>",
-                   "<h4>",
-                   "Groups: ",
-                   " <font color='",g_col,"'>£0 < ", round(c_splines[2],2),"</font>",
-                   " <font color='",o_col,"'>£", round(c_splines[2],2), " < ", round(c_splines[3],2),"</font>",
-                   " <font color='",r_col, "'>£", round(c_splines[3],2), "+</font>",
-                   "</h4>"
-    )
-  }
-  
-  # Return title
-  return(title)    
-}      
-      
-      
-      
-      
-      
+}
