@@ -5,7 +5,6 @@ server <- function(input, output, session) {
   
   ## Filter the data according to the values of the widgets
   select_data <- reactive({
-    
     # Get the widgets values
     yr <- input$year 
     var <- input$var
@@ -24,9 +23,7 @@ server <- function(input, output, session) {
       selected_data <- selected_data %>% mutate(var = act_cost_perc)
     }
     
-    # Return the selected data
-    selected_data
-    
+    return(selected_data)
   })
   
   ## Summarise the data   
@@ -41,13 +38,11 @@ server <- function(input, output, session) {
       summarise(var=mean(var, na.rm = TRUE)) %>%
       arrange(var)
     
-    # Return
-    summarised_data
+    return(summarised_data)
   })
       
   ## Get splines to segment and colour data by
   get_splines <- reactive({
-    
     # Get selected data and summarised data
     selected_data <- select_data()
     c_palette <- summarise_data()
@@ -58,7 +53,7 @@ server <- function(input, output, session) {
     # Return splines
     c_splines
   })
-      
+  
   ## Add the colour palette to the selected dataset   
   add_palette <- reactive({
     
@@ -70,7 +65,7 @@ server <- function(input, output, session) {
     # Define colour groups
     colour_group <- cut(
       c_palette$var, 
-      c(0, c_splines[2:3], max(c_palette$var)), 
+      c(0, c_splines[2:3], max(c_palette$var)),
       labels=c("low", "moderate", "high")
     )
     
@@ -115,8 +110,8 @@ server <- function(input, output, session) {
         ccg13nm
       ) %>% 
       summarise(
-        items = round(mean(items_perc, na.rm=T), 2),
-        avg_cost = round(mean(act_cost_perc, na.rm=T), 2)
+        items = round(mean(items_perc, na.rm = TRUE), 2),
+        avg_cost = round(mean(act_cost_perc, na.rm = TRUE), 2)
       ) 
 
     ccg <- unique(ccg)
@@ -135,7 +130,7 @@ server <- function(input, output, session) {
   ggvis(add_palette %>% arrange(order) %>% group_by(ccg_code, group)) %>%
     layer_paths(x = ~long, y = ~lat, fill := ~col_code, fillOpacity := 0.8, fillOpacity.hover := 1,
                 strokeWidth := 0.5, strokeWidth.hover := 2) %>%  
-    add_tooltip(map_tooltip, 'hover') %>%
+    add_tooltip(map_tooltip, "hover") %>%
     hide_axis("x") %>% 
     hide_axis("y") %>%
     set_options(duration = 500) %>%
@@ -148,8 +143,8 @@ server <- function(input, output, session) {
       group_by(ccg_code, id, year, case, act_cost, nic, ccg13nm, items_perc, act_cost_perc) %>%
       summarise()
     
-    datatable(display_data, colnames = c('CCG Code', 'Id', 'Year', 'Case', 'Actual Cost', 'Net Ingredient Cost', 'CCG Name',
-                                         'Percentage of Items', 'Percentage of Actual Cost')
+    datatable(display_data, colnames = c("CCG Code", "Id", "Year", "Case", "Actual Cost", "Net Ingredient Cost", "CCG Name",
+                                         "Percentage of Items", "Percentage of Actual Cost")
               )
     
   })
