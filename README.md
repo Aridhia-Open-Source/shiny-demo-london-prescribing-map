@@ -1,6 +1,6 @@
 # London Prescribing Map
 
-Mini-app to visualise drug prescription across various spatial district datazones in London. It contains prescribing data aggregated by Clinical Commisioning Group (CCG) regions in London between 2011-2013. Data that can be visualised includes the percentage of items prescribed corrected to the population and the cost per person. Drug types that can be compared includes statins, anti-depressants and diabetes drugs.
+Mini-app to visualise drug prescription across various spatial district data zones in London. It contains prescribing data aggregated by Clinical Commissioning Group (CCG) regions in London between 2011-2013. Data that can be visualised includes the percentage of items prescribed corrected to the population and the cost per person. Drug types that can be compared includes statins, anti-depressants and diabetes drugs.
 Output and allows users to interactive explore and visualise their data.
 
 ## Background
@@ -35,7 +35,7 @@ Open the .Rproj file in RStudio and use `runApp()` to start the app.
 
 ## Deploying to the workspace
 
-1. Create a new mini-app in the workspace called "chi-squared-test"" and delete the folder created for it
+1. Create a new mini-app in the workspace called "london-prescribing-map"" and delete the folder created for it
 2. Download this GitHub repo as a .ZIP file, or zip all the files
-3. Upload the .ZIP file to the workspace and upzip it inside a folder called "chi-squared-test"
+3. Upload the .ZIP file to the workspace and upzip it inside a folder called "london-prescribing-map"
 4. Run the app in your workspace
